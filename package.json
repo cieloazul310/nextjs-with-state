@@ -6,19 +6,26 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "ESLINT_USE_FLAT_CONFIG=true eslint . -c eslint.config.mjs",
+    "format": "prettier \"src/**/*.{js,mjs,cjs,jsx,ts,tsx}\" --parser typescript --write"
   },
   "dependencies": {
+    "next": "14.2.0",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.0"
+    "zustand": "^4.5.2"
   },
   "devDependencies": {
-    "typescript": "^5",
+    "@eslint/js": "^8",
+    "@types/eslint": "^8",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
     "eslint": "^8",
-    "eslint-config-next": "14.2.0"
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.1",
+    "prettier": "^3",
+    "typescript": "^5",
+    "typescript-eslint": "^7.6.0"
   }
 }
