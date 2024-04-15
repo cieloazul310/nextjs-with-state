@@ -1,9 +1,10 @@
-import { Viewer } from "@/components/viewer";
+import { Card } from "@/components/card";
 
 export default function Page() {
   return (
     <div>
-      <Viewer />
+      <Card />
+      <p>hoge page</p>
     </div>
   );
 }

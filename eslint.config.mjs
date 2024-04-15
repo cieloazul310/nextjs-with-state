@@ -1,3 +1,4 @@
+import globals from "globals";
 import eslint from "@eslint/js";
 import react from "eslint-plugin-react/configs/jsx-runtime.js";
 import tseslint from "typescript-eslint";
@@ -8,4 +9,18 @@ export default tseslint.config(
   react,
   ...tseslint.configs.recommended,
   prettier,
+  {
+    files: ["src/lib/create-style-context.tsx"],
+    rules: {
+      "@typescript-eslint/no-explicit-any": "warn",
+    },
+  },
+  {
+    files: ["**/*.cjs"],
+    languageOptions: {
+      globals: {
+        ...globals.node,
+      },
+    },
+  },
 );

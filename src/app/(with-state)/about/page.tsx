@@ -1,12 +1,10 @@
-import { Viewer } from "@/components/viewer";
-import { IncrementButton } from "@/components/increment-button";
+import { Card } from "@/components/card";
 
 export default function Page() {
   return (
     <div>
-      <p>about</p>
-      <Viewer />
-      <IncrementButton>Increment</IncrementButton>
+      <Card />
+      <p>about page</p>
     </div>
   );
 }
