@@ -9,6 +9,7 @@ export type CounterState = {
 export type CounterActions = {
   decrementCount: () => void;
   incrementCount: () => void;
+  reset: () => void;
 };
 
 export type CounterStore = CounterState & CounterActions;
@@ -24,7 +25,9 @@ export const createCounterStore = (
     persist(
       (set) => ({
         ...initState,
-        decrementCount: () => set((state) => ({ count: state.count - 1 })),
+        reset: () => set(() => defaultInitState),
+        decrementCount: () =>
+          set((state) => ({ count: Math.max(state.count - 1, 0) })),
         incrementCount: () => set((state) => ({ count: state.count + 1 })),
       }),
       {
