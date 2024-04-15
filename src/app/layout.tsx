@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
+import NextLink from "next/link";
 import type { PropsWithChildren } from "react";
-import "./globals.css"
+import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -10,7 +11,14 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<PropsWithChildren>) {
   return (
     <html lang="en">
-      <body>{children}</body>
+      <body>
+        <main>{children}</main>
+        <nav>
+          <NextLink href="/">Top</NextLink>
+          <NextLink href="/about">About</NextLink>
+          <NextLink href="/hoge">Hoge</NextLink>
+        </nav>
+      </body>
     </html>
   );
 }
