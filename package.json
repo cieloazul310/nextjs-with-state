@@ -3,13 +3,16 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
+    "prepare": "git config --local core.hooksPath .githooks && panda codegen",
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
     "lint": "ESLINT_USE_FLAT_CONFIG=true eslint . -c eslint.config.mjs",
-    "format": "prettier \"src/**/*.{js,mjs,cjs,jsx,ts,tsx}\" --parser typescript --write"
+    "format": "prettier \"src/**/*.{js,mjs,cjs,jsx,ts,tsx}\" --parser typescript --write",
+    "lint-staged": "lint-staged"
   },
   "dependencies": {
+    "@ark-ui/react": "^2.2.3",
     "next": "14.2.0",
     "react": "^18",
     "react-dom": "^18",
@@ -17,6 +20,8 @@
   },
   "devDependencies": {
     "@eslint/js": "^8",
+    "@pandacss/dev": "^0.37.2",
+    "@park-ui/panda-preset": "^0.37.0",
     "@types/eslint": "^8",
     "@types/node": "^20",
     "@types/react": "^18",
@@ -24,8 +29,15 @@
     "eslint": "^8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",
+    "lint-staged": "^15.2.2",
     "prettier": "^3",
     "typescript": "^5",
     "typescript-eslint": "^7.6.0"
+  },
+  "lint-staged": {
+    "*.{js,mjs,cjs,jsx,ts,tsx}": [
+      "eslint -c eslint.config.mjs",
+      "prettier --parser typescript --write"
+    ]
   }
 }
