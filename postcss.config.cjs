@@ -1,5 +1,5 @@
+/* eslint @typescript-eslint/no-var-requires: off */
+
 module.exports = {
-  plugins: {
-    "@pandacss/dev/postcss": {},
-  },
+  plugins: [require("@pandacss/dev/postcss")()],
 };

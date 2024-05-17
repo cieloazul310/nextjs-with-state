@@ -1,8 +1,15 @@
 // src/providers/counter-store-provider.tsx
 "use client";
 
-import { type ReactNode, createContext, useRef, useContext } from "react";
-import { type StoreApi, useStore } from "zustand";
+import {
+  type PropsWithChildren,
+  createContext,
+  useRef,
+  useContext,
+} from "react";
+import { type StoreApi } from "zustand";
+import { useStoreWithEqualityFn } from "zustand/traditional";
+import { shallow } from "zustand/shallow";
 
 import { type CounterStore, createCounterStore } from "@/stores/counter-store";
 
@@ -10,9 +17,7 @@ export const CounterStoreContext = createContext<StoreApi<CounterStore> | null>(
   null,
 );
 
-export interface CounterStoreProviderProps {
-  children: ReactNode;
-}
+export type CounterStoreProviderProps = PropsWithChildren;
 
 export const CounterStoreProvider = ({
   children,
@@ -38,5 +43,5 @@ export const useCounterStore = <T,>(
     throw new Error(`useCounterStore must be use within CounterStoreProvider`);
   }
 
-  return useStore(counterStoreContext, selector);
+  return useStoreWithEqualityFn(counterStoreContext, selector, shallow);
 };

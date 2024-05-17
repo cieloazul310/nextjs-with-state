@@ -15,10 +15,17 @@ export default defineConfig({
   ],
 
   // Where to look for your css declarations
-  include: ["./src/**/*.{js,jsx,ts,tsx}", "./pages/**/*.{js,jsx,ts,tsx}"],
+  include: ["./src/**/*.{js,jsx,ts,tsx}", "./src/**/*.stories.{js,jsx,ts,tsx}"],
 
   // Files to exclude
   exclude: [],
+
+  conditions: {
+    extend: {
+      light: "[data-theme=light] &",
+      dark: "[data-theme=dark] &",
+    },
+  },
 
   // Useful for theme customization
   theme: {
