@@ -38,7 +38,11 @@ const config: StorybookConfig = {
   ],
   framework: {
     name: "@storybook/nextjs",
-    options: {},
+    options: {
+      builder: {
+        useSWC: true,
+      },
+    },
   },
   staticDirs: ["../public"],
   webpackFinal: async (baseConfig) => {
