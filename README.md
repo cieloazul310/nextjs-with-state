@@ -80,6 +80,11 @@ Storybook with Next.js - Storybook
 Styling and CSS / Post CSS - Storybook  
 <https://storybook.js.org/docs/configure/styling-and-css#postcss>
 
+## Next.js with ESLint Flag config
+
+next-lint Doesn't Support ESLint 9 #64409  
+<https://github.com/vercel/next.js/issues/64409>
+
 [Zustand]: https://docs.pmnd.rs/zustand/
 [ESLint]: https://eslint.org/
 [Vitest]: https://vitest.dev/

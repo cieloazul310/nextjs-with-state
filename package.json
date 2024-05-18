@@ -46,7 +46,6 @@
     "eslint": "^8",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-react": "^7.34.1",
-    "eslint-plugin-storybook": "^0.8.0",
     "jsdom": "^24.0.0",
     "lint-staged": "^15.2.2",
     "prettier": "^3",
@@ -62,10 +61,5 @@
       "prettier --parser typescript --write"
     ]
   },
-  "packageManager": "pnpm@7.24.3+sha1.48094934266041ab123b3c269b64afc9b67c5f7b",
-  "eslintConfig": {
-    "extends": [
-      "plugin:storybook/recommended"
-    ]
-  }
+  "packageManager": "pnpm@7.24.3+sha1.48094934266041ab123b3c269b64afc9b67c5f7b"
 }
