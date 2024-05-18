@@ -49,7 +49,7 @@ export function Card() {
           disabled={count === 0}
           onClick={reset}
         >
-          0
+          Reset
         </Button>
       </HStack>
     </Square>
