@@ -7,8 +7,12 @@ name: Test
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches-ignore:
-      - main
+    branches-ignore: ["main"]
+    paths-ignore:
+      - .gitignore
+      - .githooks/**
+      - .vscode/**
+      - README.md
 
 jobs:
   # Build job

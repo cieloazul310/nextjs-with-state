@@ -8,6 +8,12 @@ on:
   # Runs on pushes targeting the default branch
   pull_request:
     types: [opened, synchronize]
+    paths-ignore:
+      - .gitignore
+      - .githooks/**
+      - .vscode/**
+      - .storybook/**
+      - README.md
 
 jobs:
   # Build job
