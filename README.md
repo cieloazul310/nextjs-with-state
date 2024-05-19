@@ -76,11 +76,34 @@ Testing - Zustand
 Mocking - Vitest  
 <https://vitest.dev/guide/mocking.html>
 
+mockしたZustandは`src/setup-vitest.ts`を用いて呼び出し、`vitest.config.ts`に記述する。
+
+```ts
+// src/setup-vitest.ts
+import { vi } from "vitest";
+import "@testing-library/jest-dom/vitest";
+
+vi.mock("zustand"); // to make it works like Jest (auto-mocking)
+```
+
+```ts
+// vitest.config.ts
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  test: {
+    environment: "jsdom",
+    setupFiles: ["./src/setup-vitest.ts"],
+  },
+});
+```
+
 ### TSConfigのpathsを適用
 
 `vite-tsconfig-paths`プラグインを使用する。
 
 ```ts
+// vitest.config.ts
 import { defineConfig } from "vitest/config";
 import react from "@vitejs/plugin-react";
 import tsconfigPaths from "vite-tsconfig-paths";
@@ -96,7 +119,7 @@ vite-tsconfig-paths
 Common Errors / Cannot find module './relative-path' - Vitest  
 <https://vitest.dev/guide/common-errors.html#cannot-find-module-relative-path>
 
-### Zustand公式ドキュメントの例の修正
+### Zustand公式ドキュメントのコード例の修正
 
 Zustand公式ドキュメントの通りに記載すると、`test`を実行するたびに、`test`内の`renderCounter`によって`screen`にDOMが増殖していく。結局、`test`内の`renderCounter`を削除し、`describe`の先頭に下記のコードを記載した。
 
@@ -122,6 +145,7 @@ describe("test", () => {
 Zustand + Next.jsのコードをそのままVitestのテストに用いると上手く実行されない。Testingのコードと比較した結果、以下の修正を行うことでテストが正常に実行される。`useStore`を`useStoreWithEqualityFn`に置き換え、第3引数に`shallow`を用いる。なおこの変更がもたらすパフォーマンス面への影響は不明。
 
 ```tsx
+// src/stores/use-counter-store.ts
 // - import { useStore } from 'zustand'
 import { useStoreWithEqualityFn } from "zustand/traditional";
 import { shallow } from "zustand/shallow";
@@ -163,6 +187,7 @@ Styling and CSS / Post CSS - Storybook
 `@storybook/nextjs`のオプションで、`builder.useSWC`を`true`に設定する。
 
 ```ts
+// .storybook/main.ts
 const config: StorybookConfig = {
   ...,
   addons: [
@@ -224,6 +249,31 @@ const config: StorybookConfig = {
 };
 ```
 
+### ダークモードの設定
+
+まずダークモード使用の有無に関わらず`global.css`をインポートする。  
+次に`@storybook/addon-themes`をインストールする。`.storybook/preview.tsx`を下記のように編集。
+
+@storybook/addon-themes  
+<https://storybook.js.org/addons/@storybook/addon-themes/>
+
+```ts
+// .storybook/preview.tsx
+import { withThemeByDataAttribute } from "@storybook/addon-themes";
+
+export const decorators = [
+  withThemeByDataAttribute({
+    themes: {
+      light: "light",
+      dark: "dark",
+    },
+    defaultTheme: "light",
+    attributeName: "data-theme",
+  }),
+  (Story) => <Story />,
+];
+```
+
 ## Next.js with ESLint Flag config
 
 `next/core-web-vitals`はFlat configに対応していないため、他のプラグインで置き換える。`eslint-plugin-react`はFlat configに対応しているが、ESLint v9に対応していないためESLint v8を用いた。
@@ -247,6 +297,40 @@ next-lint Doesn't Support ESLint 9 #64409
   }
 }
 ```
+
+## Links
+
+### Zustand
+
+Setup with Next.js - Zustand  
+<https://docs.pmnd.rs/zustand/guides/nextjs>
+
+Persisting store data - Zustand  
+<https://docs.pmnd.rs/zustand/integrations/persisting-store-data>
+
+Testing - Zustand  
+<https://docs.pmnd.rs/zustand/guides/testing>
+
+### Vitest
+
+Mocking - Vitest  
+<https://vitest.dev/guide/mocking.html>
+
+Common Errors / Cannot find module './relative-path' - Vitest  
+<https://vitest.dev/guide/common-errors.html#cannot-find-module-relative-path>
+
+### Next.js
+
+Setting up Vitest with Next.js - Next.js  
+<https://nextjs.org/docs/app/building-your-application/testing/vitest>
+
+### Storybook
+
+Storybook with Next.js - Storybook  
+<https://storybook.js.org/docs/get-started/nextjs>
+
+Styling and CSS / Post CSS - Storybook  
+<https://storybook.js.org/docs/configure/styling-and-css#postcss>
 
 [Zustand]: https://docs.pmnd.rs/zustand/
 [ESLint]: https://eslint.org/
