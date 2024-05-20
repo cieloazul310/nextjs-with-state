@@ -16,7 +16,10 @@ describe("Card", () => {
   beforeEach(() => {
     renderCard();
   });
-  afterEach(cleanup);
+  afterEach(() => {
+    cleanup();
+    sessionStorage.clear();
+  });
 
   test("should render with initial state of 0", async () => {
     expect(await screen.findByText(/^0$/)).toBeInTheDocument();
@@ -31,9 +34,35 @@ describe("Card", () => {
     expect(await screen.findByText(/^0$/)).toBeInTheDocument();
 
     await act(async () => {
-      await user.click(await screen.findByRole("button", { name: /\+/i }));
+      await user.click(await screen.findByRole("button", { name: /^\+$/ }));
     });
 
     expect(await screen.findByText(/^1$/)).toBeInTheDocument();
+  });
+
+  test("increase, decrease and reset", async () => {
+    const user = userEvent.setup();
+    const increaseButton = await screen.findByRole("button", { name: /^\+$/ });
+    const decreaseButton = await screen.findByRole("button", { name: /^-$/ });
+    const resetButton = await screen.findByRole("button", { name: /^Reset$/ });
+
+    expect(await screen.findByText(/^0$/)).toBeInTheDocument();
+
+    await act(async () => {
+      await user.click(increaseButton);
+      await user.click(increaseButton);
+      await user.click(increaseButton);
+    });
+    expect(await screen.findByText(/^3$/)).toBeInTheDocument();
+
+    await act(async () => {
+      await user.click(decreaseButton);
+    });
+    expect(await screen.findByText(/^2$/)).toBeInTheDocument();
+
+    await act(async () => {
+      await user.click(resetButton);
+    });
+    expect(await screen.findByText(/^0$/)).toBeInTheDocument();
   });
 });
